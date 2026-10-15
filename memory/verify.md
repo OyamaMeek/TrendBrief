@@ -21,4 +21,5 @@
 - 真实 workflow_dispatch 运行 38728721857 成功：runner 全部检查通过，10 条摘要无失败，1 段确认 sent、message_id=46，归档与状态普通 push 至 main，最终提交 52d65ba。Bot 为目标 supergroup 管理员且有发言权限；用户确认收到完整简报。
 - 第二次真实运行 38729696123 成功；日志明确当天已确认送达，不调用 AI 或 Telegram。远端无新增正文或状态提交。
 - 移除新推送中的抓取时间：回归测试先失败后通过；完整套件 30 项通过，Ruff、格式、编译通过。使用真实十项目及已生成摘要重排，1 段 2487 UTF-16 units、无抓取时间，未再次调用 AI 或 Telegram。
+- 最新代码提交 9f1b40f 对应真实运行 38730142089 成功：verify job 116405628676 明确输出 Ran 30 tests、All checks passed；deliver job 116405783493 明确输出 skipped，无需调用 AI 或 Telegram。
 - 已发送当天归档及状态保持冻结并校验通过。实际 schedule 事件尚未验收。

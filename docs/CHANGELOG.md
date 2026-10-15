@@ -32,13 +32,13 @@
   - 通过 GitHub 公钥加密配置三项 Secrets，写入三项 Variables；秘密值未提交仓库。
   - 首次 Actions 运行 38728721857 成功发送完整简报，Telegram 确认 message_id=46，最终状态保存至 main，用户确认收到；第二次运行 38729696123 成功跳过。
   - 新推送项目正文移除抓取时间，归档头部保留来源时间；已确认发送的历史正文及状态保持冻结。
-  - 测试/验证：30 项 unittest、Ruff、格式及编译检查通过；真实材料重排后 1 段、2487 UTF-16 units、无抓取时间。实际 schedule 事件仍待验收。
+  - 测试/验证：30 项 unittest、Ruff、格式及编译检查通过；真实材料重排后 1 段、2487 UTF-16 units、无抓取时间。最新代码的 Actions 运行 38730142089 全部成功并正确跳过已发送简报。实际 schedule 事件仍待验收。
 
 - **涉及文件**：
   - trending_digest.py、tests/test_digest.py、README.md
   - memory/plan.md、memory/progress.md、memory/verify.md、memory/gotchas.md、docs/CHANGELOG.md
   - 本地忽略文件 .env 仅补齐预算字段，不提交；运行生成 massage/2026/10/15/Trending.md 和 .state/2026/10/15/delivery.json，由 Actions 提交。
 
-- **Git 提交**：待提交；实际发送状态提交为 `52d65ba docs: persist TrendBrief delivery 2026-10-15`。
+- **Git 提交**：`9f1b40f fix: remove fetch timestamps from Telegram digest entries`，已推送 origin/main；实际发送状态提交为 `52d65ba docs: persist TrendBrief delivery 2026-10-15`。本记录与最新 Actions 证据通过后续文档提交补记。
 
 ---

@@ -12,7 +12,8 @@
 - [x] Actions 真实发送运行 38728721857 成功：10 条摘要全部成功，1 段 sent、message_id=46；用户确认群组收到。
 - [x] 第二次运行 38729696123 成功跳过，日志确认无需调用 AI 或 Telegram，远端归档与状态不变。
 - [x] 根据用户要求移除新推送正文的抓取时间；30 项测试、静态/格式/编译检查及实际十项目重排预览通过。
-- [ ] 推送最新格式修改后再次验证 Actions；实际 schedule 事件尚未验收。
+- [x] 格式修改提交 9f1b40f 已推送；最新 Actions 运行 38730142089 成功，runner 的 30 项测试及各项检查通过，发送步骤正确跳过。
+- [ ] 实际 schedule 事件尚未验收；工作流已启用，计划北京时间每日 14:06、16:06、17:06 触发。
 
 部署条件：远端为公开 OyamaMeek/TrendBrief，默认分支 main；Actions enabled、工作流 active。配置来自本地 .env，已补齐经真实请求验证的 AI_TOKEN_BUDGET_FIELD=max_tokens，并在用户明确授权后上传 Actions。runner 的 GITHUB_TOKEN 已成功提交并推送归档及分段状态。部署脚本、原始预览及日志仅存于忽略目录 .local-test，秘密值不写入仓库记录。
 
