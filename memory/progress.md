@@ -6,7 +6,7 @@
 - [x] Git 持久化、发送、恢复规则和集成测试；覆盖发送前和结果回存的 Git 故障。
 - [x] 工作流与 README；官方 checkout v7.0.1、setup-python v7.0.0 标签和 SHA 已远端核实。
 - [x] 独立只读审查：修复 HTTP 滴流突破总预算问题，CLI 使用 SIGALRM 硬截止；回归测试先失败再通过。
-- [ ] 完整检查和提交推送。
+- [x] 29 项 unittest、pip check、Ruff、编译、工作流 YAML/shell 及提交内容检查通过；产品提交 b6369cb 已推送 origin/main。
 - [ ] 真实 AI、Telegram、Actions 手动及定时验收：缺少配置，尚未执行。
 
 部署条件：已核实远端为公开 OyamaMeek/TrendBrief，默认分支 main；普通 git push --dry-run 成功。未安装 gh，未认证的 Actions 权限 API 返回 401，无法据此确认 GITHUB_TOKEN 策略、Secrets/Variables 或远端 Actions 验收。
