@@ -399,6 +399,15 @@ def summarize(network, config, project, readme, note):
     raise DigestError("ai_length", "摘要长度纠正失败")
 
 
+def format_project(project):
+    stars = "未知" if project.stars is None else str(project.stars)
+    today = "未知" if project.today_stars is None else str(project.today_stars)
+    return (
+        f"{project.rank}. {project.name}\n{project.url}\n"
+        f"语言：{project.language} | Star：{stars} | 今日新增：{today}"
+    )
+
+
 def generate_digest(network, config, day):
     status, raw, _ = network.request("GET", TRENDING_URL, limit=2 * 1024 * 1024)
     if status != 200:
@@ -419,14 +428,7 @@ def generate_digest(network, config, day):
             summary = f"摘要失败（{error.data['message']}）；原始描述：{project.description}"
         if note:
             summary = note + "；" + summary
-        stars = "未知" if project.stars is None else str(project.stars)
-        today = "未知" if project.today_stars is None else str(project.today_stars)
-        fixed = (
-            f"{project.rank}. {project.name}\n{project.url}\n"
-            f"语言：{project.language} | Star：{stars} | 今日新增：{today}\n"
-            f"抓取时间：{fetched_at}"
-        )
-        entries.append((fixed, summary))
+        entries.append((format_project(project), summary))
     return Digest(day, fetched_at, projects, split_messages(day, entries))
 
 

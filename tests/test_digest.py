@@ -38,6 +38,15 @@ class ParsingTests(unittest.TestCase):
 
 
 class FormattingTests(unittest.TestCase):
+    def test_project_format_omits_fetch_time_and_retains_stats(self):
+        project = digest.Project(
+            1, "owner/repo", "https://github.com/owner/repo", "原始描述", "Python", None, 0
+        )
+        self.assertEqual(
+            digest.format_project(project),
+            "1. owner/repo\nhttps://github.com/owner/repo\n语言：Python | Star：未知 | 今日新增：0",
+        )
+
     def test_date_paths_and_schedule(self):
         instant = datetime(2026, 10, 15, 18, tzinfo=UTC)
         day = digest.shanghai_now(instant).date().isoformat()

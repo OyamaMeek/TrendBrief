@@ -25,7 +25,7 @@ cp .env.example .env
 | `TELEGRAM_BOT_TOKEN` | Bot Token，仅发送模式需要 |
 | `TELEGRAM_CHAT_ID` | 群组实际负数 ID，保留完整负号和数字，仅发送模式需要 |
 
-当前尚未验证用户的第三方 AI 接口。必须先确认非流式 Chat Completions、模型和预算字段，程序不会自动更换协议或省略预算。每个项目独立请求，长度不合格时最多纠正一次；可重试 HTTP 请求最多尝试 3 次，因此会产生相应 API 费用。
+当前部署已通过非流式 Chat Completions 和 `max_tokens=1024` 的真实验证。更换服务商或模型时须重新验证协议和预算字段，程序不会自动更换协议或省略预算。每个项目独立请求，长度不合格时最多纠正一次；可重试 HTTP 请求最多尝试 3 次，因此会产生相应 API 费用。
 
 ```bash
 .venv/bin/python trending_digest.py --dry-run
@@ -58,6 +58,7 @@ cron 为 `6 6,8,9 * * *`，使用 UTC，对应北京时间 14:06、16:06、17:06
 ## 归档、发送与恢复
 
 - `massage/YYYY/MM/DD/Trending.md` 保存当天日期、抓取时间、统计及实际分段正文。目录名固定为 `massage`。
+- 新生成的 Telegram 推送正文不展示抓取时间；来源时间保留在归档头部和状态中。已确认发送的历史正文保持冻结。
 - `.state/YYYY/MM/DD/delivery.json` 保存 SHA-256 群组指纹、正文校验值、冻结正文、状态和已确认的 `message_id`，不保存原始群组 ID 或凭证。指纹不属于秘密加密，不应据此推断状态适合存放其他秘密。
 - 初始正文和状态同一提交 push 成功后才发送；每段先提交并 push `sending`，确认远端正文后调用 Telegram；收到有效成功响应后提交并 push `sent` 和 ID，再处理下一段。
 - 同日补跑复用冻结正文，仅处理 `pending`；全部 `sent` 时不调用 AI 或 Telegram。归档和状态缺失、损坏、校验不一致或目标变化时终止，不覆盖。
@@ -91,7 +92,9 @@ cron 为 `6 6,8,9 * * *`，使用 UTC，对应北京时间 14:06、16:06、17:06
 git diff --check
 ```
 
-测试使用真实 Trending 页面最小材料、纯函数边界输入、本地 HTTP 协议服务和 `.local-test/` 下真实 Git bare 仓库。离线测试验证逻辑和失败处理，不证明 AI、Telegram 或 GitHub Actions 可用。当前未执行用户 AI 真实预览、Telegram 群组发送、Actions 手动及定时验收。无 UI，无截图要求。
+测试使用真实 Trending 页面最小材料、纯函数边界输入、本地 HTTP 协议服务和 `.local-test/` 下真实 Git bare 仓库。离线测试验证逻辑和失败处理，不证明 AI、Telegram 或 GitHub Actions 可用。
+
+2026-10-15 已完成用户 AI 真实预览及 [Actions 手动发送](https://github.com/OyamaMeek/TrendBrief/actions/runs/38728721857)：10 条摘要全部成功，Telegram 确认 message_id=46，状态已保存到默认分支，用户确认群组收到完整内容。[再次运行](https://github.com/OyamaMeek/TrendBrief/actions/runs/38729696123)成功跳过，无需调用 AI 或 Telegram。实际 schedule 事件仍待后续验收。无 UI，无截图要求。
 
 ## 官方接口参考
 
