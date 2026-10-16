@@ -25,3 +25,4 @@
 - 最新代码提交 9f1b40f 对应真实运行 38730142089 成功：verify job 116405628676 明确输出 Ran 30 tests、All checks passed；deliver job 116405783493 明确输出 skipped，无需调用 AI 或 Telegram。
 - 已发送当天归档及状态保持冻结并校验通过。实际 schedule 事件尚未验收。
 - 2026-10-16：补跑 YAML 检查先因 missing half-hour retries 失败，修改 cron 后通过；30 项 unittest、pip check、Ruff、格式、编译及 git diff 检查通过。Actions 设置已重新核对，无禁用或配置缺失；漏触发具体原因未获 GitHub 提供。
+- 配置提交 1eb4273 已推送；真实运行 38869017800 的 verify/deliver 均成功，日志确认 1/1 段送达并保存到远端；状态 message_id=51、sent，默认分支最终归档提交 431fd02，本地 validate_delivery 校验通过。第二次运行 38869396294 的 verify/deliver 均成功，job 116869803770 日志明确 skipped、无需调用 AI 或 Telegram。以上均为 workflow_dispatch，尚无 schedule 验收证据。

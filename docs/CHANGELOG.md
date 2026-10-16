@@ -9,12 +9,13 @@
   - 已核实 Actions enabled、workflow active、默认分支及原 cron 正确；14:06 未生成 schedule 运行，具体原因未获 GitHub 提供。
   - 保留每日北京时间 14:06、16:06、17:06，增加 14:36、16:36、17:36；复用当天成功跳过和串行发送机制。该调整缓解漏跑，不保证平台调度可用。
   - YAML 补跑检查先失败后通过；30 项 unittest、pip check、Ruff、格式、编译、工作流 YAML/shell 与 git diff 检查通过。实际 schedule 尚未验收。
+  - 真实 Actions 38869017800 成功补发 2026-10-16 简报，Telegram 确认 message_id=51，远端状态 sent，归档校验通过；再次运行 38869396294 成功跳过，日志确认未调用 AI 或 Telegram。
 
 - **涉及文件**：
   - `.github/workflows/trendbrief.yml`、`README.md`、`memory/plan.md`、`memory/progress.md`、`memory/verify.md`、`docs/CHANGELOG.md`
   - 补跑配置检查复用忽略目录 `.local-test/validate_workflow.rb`，未加入 CI。
 
-- **Git 提交**：待提交。
+- **Git 提交**：`1eb4273 fix: add half-hour retries for missed digest schedules`，已普通推送至 origin/main；今日发送最终状态提交为 `431fd02 docs: persist TrendBrief delivery 2026-10-16`。真实验收结果通过后续文档提交补记。
 
 ---
 
