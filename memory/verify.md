@@ -6,6 +6,7 @@
 - 真实本地 bare Git 仓库验证提交/push/远端确认，以及 push 失败停止后续发送。
 - pip check、unittest、ruff check、ruff format --check、py_compile、git diff --check。
 - 无 UI，不进行截图。离线测试不能作为 AI/Telegram/GitHub Actions 的真实验收。
+- 定时补跑：YAML 解析检查 UTC 06/08/09 时的 06/36 分、并发组、权限、SHA 及 shell 语法；完整测试确认同日已发送跳过和不确定发送停止。手动验收与实际 schedule 验收分别记录。
 
 ## 已执行证据
 
@@ -23,3 +24,4 @@
 - 移除新推送中的抓取时间：回归测试先失败后通过；完整套件 30 项通过，Ruff、格式、编译通过。使用真实十项目及已生成摘要重排，1 段 2487 UTF-16 units、无抓取时间，未再次调用 AI 或 Telegram。
 - 最新代码提交 9f1b40f 对应真实运行 38730142089 成功：verify job 116405628676 明确输出 Ran 30 tests、All checks passed；deliver job 116405783493 明确输出 skipped，无需调用 AI 或 Telegram。
 - 已发送当天归档及状态保持冻结并校验通过。实际 schedule 事件尚未验收。
+- 2026-10-16：补跑 YAML 检查先因 missing half-hour retries 失败，修改 cron 后通过；30 项 unittest、pip check、Ruff、格式、编译及 git diff 检查通过。Actions 设置已重新核对，无禁用或配置缺失；漏触发具体原因未获 GitHub 提供。

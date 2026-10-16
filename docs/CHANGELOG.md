@@ -1,5 +1,23 @@
 # 开发记录
 
+## [2026-10-16 15:42] 增加定时漏跑后的补跑机会
+
+- **需求/问题描述**：
+  > 用户报告定时未执行并要求修复。
+
+- **实际实现的功能与改动**：
+  - 已核实 Actions enabled、workflow active、默认分支及原 cron 正确；14:06 未生成 schedule 运行，具体原因未获 GitHub 提供。
+  - 保留每日北京时间 14:06、16:06、17:06，增加 14:36、16:36、17:36；复用当天成功跳过和串行发送机制。该调整缓解漏跑，不保证平台调度可用。
+  - YAML 补跑检查先失败后通过；30 项 unittest、pip check、Ruff、格式、编译、工作流 YAML/shell 与 git diff 检查通过。实际 schedule 尚未验收。
+
+- **涉及文件**：
+  - `.github/workflows/trendbrief.yml`、`README.md`、`memory/plan.md`、`memory/progress.md`、`memory/verify.md`、`docs/CHANGELOG.md`
+  - 补跑配置检查复用忽略目录 `.local-test/validate_workflow.rb`，未加入 CI。
+
+- **Git 提交**：待提交。
+
+---
+
 ## [2026-10-15 19:13] 实现开源趋势简报命令行工具
 
 - **需求/问题描述**：

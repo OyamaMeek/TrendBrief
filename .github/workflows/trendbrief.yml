@@ -2,7 +2,7 @@ name: TrendBrief
 
 on:
   schedule:
-    - cron: '6 6,8,9 * * *'
+    - cron: '6,36 6,8,9 * * *'
   workflow_dispatch:
 
 permissions:
