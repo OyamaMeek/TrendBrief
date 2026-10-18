@@ -1,0 +1,57 @@
+# 开源趋势简报 2026-10-18
+
+抓取时间：2026-10-18T18:56:12+08:00
+
+来源：https://github.com/trending?since=daily
+
+开源趋势简报 2026-10-18（1/1）
+
+1. anthropics/claude-plugins-official
+https://github.com/anthropics/claude-plugins-official
+语言：Python | Star：42232 | 今日新增：1187
+AI 摘要：该项目是Anthropic官方管理的Claude Code插件目录。据资料介绍，其收录官方及第三方插件，支持MCP服务器配置、斜杠命令、智能体与技能包扩展，用户可直接浏览并安装。该目录适用于需要扩展Claude Code能力的开发者，以及发布、共享自制插件与技能的创作者。
+
+2. MadsLorentzen/ai-job-search
+https://github.com/MadsLorentzen/ai-job-search
+语言：Python | Star：51290 | 今日新增：2213
+README 已截断；AI 摘要：该项目是基于Claude Code构建的本地求职自动化框架，用于辅助个人求职全流程。据作者介绍，其核心功能包括检索匹配职位、评估岗位契合度、生成定制化LaTeX简历与求职信、审核修正文书及准备面试。该框架适用于希望利用AI工具自动化搜索工作、批量优化申请材料并准备面试的求职场景。
+
+3. affaan-m/ECC
+https://github.com/affaan-m/ECC
+语言：JavaScript | Star：282914 | 今日新增：1073
+README 已截断；AI 摘要：ECC被作者定位为智能体运行与测试环境（agent harness）的性能优化系统。据作者宣称，该项目主要提供技能、本能、记忆机制、安全防护及研发导向开发功能，并包含相应扩展工具包。它主要适用于Claude Code、Codex、Opencode、Cursor等AI编程代理工具及其开发场景。
+
+4. HKUDS/CLI-Anything
+https://github.com/HKUDS/CLI-Anything
+语言：Python | Star：54308 | 今日新增：582
+README 已截断；AI 摘要：CLI-Anything作者宣称旨在让各类软件支持AI智能体操作。其主要功能包括通过CLI-Hub浏览与管理命令行工具，提供适配多种应用的CLI封装及技能扩展，支持JSON等格式输出。该项目适用于让Cursor、Claude Code等智能体调用外部软件完成各类自动化任务的场景。
+
+5. K-Dense-AI/scientific-agent-skills
+https://github.com/K-Dense-AI/scientific-agent-skills
+语言：Python | Star：52537 | 今日新增：672
+README 已截断；AI 摘要：该项目是一个面向AI智能体的科学研究技能库。据作者介绍，该项目遵循开源技能标准，为智能体调用专业科学软件包与数据库提供指引规范及校验支持，以提升科研可靠性。适用场景涵盖生物信息、化学与药物研发、医学影像、物理与工程仿真等多学科的科研工作流、数据处理与分析。
+
+6. akitaonrails/ai-memory
+https://github.com/akitaonrails/ai-memory
+语言：Rust | Star：10165 | 今日新增：178
+README 已截断；AI 摘要：作者宣称，ai-memory是一款为AI编程智能体提供长期记忆与交接的工具。主要功能包括：以Git支持的Markdown文件管理记忆，在默认免LLM调用下自动捕获、检索与压缩记忆，支持跨工具传递会话状态。适用于开发者跨多种编程Agent、跨设备连续编写代码及团队协作共享上下文等场景。
+
+7. android/skills
+https://github.com/android/skills
+语言：Kotlin | Star：8592 | 今日新增：381
+AI 摘要：该项目是专为AI优化的Android开发指令与资源库。作者宣称其提供遵循开放标准规范的技术说明，旨在帮助智能体更好理解并执行官方最佳实践，重点覆盖大模型表现欠佳的用例。它支持通过命令行工具或插件形式安装，适用于智能体辅助进行各类Android应用开发与特定任务的场景。
+
+8. stablyai/orca
+https://github.com/stablyai/orca
+语言：TypeScript | Star：95901 | 今日新增：830
+README 已截断；AI 摘要：Orca 是作者宣称用于协调多个编程智能体的工具。主要功能包括在隔离 Git 工作区并行运行智能体并对比结果、分屏终端、提取网页元素生成提示词、审查与标注代码差异、集成 GitHub 与 Linear 及 SSH 远程执行，并支持移动端监控。适用于多智能体协同编码、评审及多端开发协作场景。
+
+9. anthropics/claude-code
+https://github.com/anthropics/claude-code
+语言：TypeScript | Star：152198 | 今日新增：179
+AI 摘要：作者将该项目定位为运行在终端的智能体编程工具。据介绍，它能理解代码库，支持通过自然语言指令执行日常开发任务、解释复杂代码并处理Git工作流，同时提供插件机制以扩展自定义命令与智能体。该工具适用于开发者在终端、IDE或代码托管平台中辅助日常编程与项目协作。
+
+10. debpalash/VoiceStudio
+https://github.com/debpalash/VoiceStudio
+语言：Python | Star：74119 | 今日新增：2098
+README 已截断；AI 摘要：VoiceStudio 是开源本地语音处理工具，作者宣称其为 ElevenLabs 的本地替代方案。该项目提供语音克隆、声音设计、视频配音、听写转录和有声书制作功能，支持本地模型管理与接口对接。适用于需要在本地完成多语言音频生成与视频配音，或将语音工作流接入智能体的场景。
