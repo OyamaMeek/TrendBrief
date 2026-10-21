@@ -1,0 +1,57 @@
+# 开源趋势简报 2026-10-21
+
+抓取时间：2026-10-21T19:40:29+08:00
+
+来源：https://github.com/trending?since=daily
+
+开源趋势简报 2026-10-21（1/1）
+
+1. MadsLorentzen/ai-job-search
+https://github.com/MadsLorentzen/ai-job-search
+语言：Python | Star：62101 | 今日新增：3861
+README 已截断；AI 摘要：该项目是本地运行的AI求职工作流框架，作者宣称其基于自身求职实践打造。系统基于Claude Code运行，主要功能包括搜索职位、评估人岗匹配度、生成定制化LaTeX简历与求职信、执行审查优化及辅助面试准备。适用于希望在本地借助AI自动化定制应聘材料的求职场景。
+
+2. cloudflare/security-audit-skill
+https://github.com/cloudflare/security-audit-skill
+语言：JavaScript | Star：35040 | 今日新增：1712
+AI 摘要：该项目是一个面向编程智能体的安全审计技能，用于对代码库开展多阶段安全审查。主要功能包括通过侦察、覆盖率驱动挖掘、对抗式候选验证、结构化输出及独立记录验证等阶段编排隔离智能体，生成机器可读的审计与验证报告，并支持增量累积审计。适用于利用编程智能体对代码库进行自动化漏洞挖掘与代码审计的场景。
+
+3. vllm-project/vllm
+https://github.com/vllm-project/vllm
+语言：Python | Star：94655 | 今日新增：128
+AI 摘要：该项目是大语言模型推理与服务引擎。据作者介绍，其用于提供高吞吐和内存高效的服务，功能涵盖PagedAttention显存管理、连续批处理、多种量化、分布式并行推理及兼容OpenAI的API接口。该工具适用于在各类GPU、CPU等硬件上部署语言及多模态模型的高并发在线服务场景。
+
+4. stablyai/orca
+https://github.com/stablyai/orca
+语言：TypeScript | Star：100490 | 今日新增：1565
+README 已截断；AI 摘要：据作者介绍，Orca是一款AI编程智能体编排工具，支持在桌面、移动端及远程环境中运行各类代码Agent。主要功能包括在独立Git工作区并行调度多个Agent并对比方案，提供终端分屏、代码差异批注、远程SSH接入与移动端监控。适用于开发者多模型代码方案比对、跨端协作与远程任务跟踪等开发场景。
+
+5. headroomlabs-ai/headroom
+https://github.com/headroomlabs-ai/headroom
+语言：Python | Star：76975 | 今日新增：549
+README 已截断；AI 摘要：Headroom是用于AI智能体的上下文压缩工具，旨在向大模型输入前压缩工具输出、日志、文件及对话历史。作者宣称其处理完全在本地运行，不外发内容。主要功能包括按数据类型压缩、提供SDK与本地代理、支持MCP协议及智能体封装，并可缓存原文供按需回溯。适用于代码智能体与调用大量工具的Agent场景。
+
+6. DietrichGebert/ponytail
+https://github.com/DietrichGebert/ponytail
+语言：JavaScript | Star：170654 | 今日新增：1208
+README 已截断；AI 摘要：Ponytail是一款面向AI智能体的开发辅助工具。作者宣称其能让智能体以资深开发者思维编写精简代码，优先复用现有逻辑并兼顾安全。主要功能包括跨文件代码审查、全库风险审计与优先级排序，以及显示任务消耗与复用状态。适用于使用AI智能体进行日常编码、提交前审查及代码库质量排查等场景。
+
+7. Comfy-Org/ComfyUI
+https://github.com/Comfy-Org/ComfyUI
+语言：Python | Star：141197 | 今日新增：1206
+README 已截断；AI 摘要：ComfyUI是一款用于多媒体内容创作的模块化AI生成引擎。它提供可视化节点图界面，支持构建图像、视频、音频与三维模型工作流，具备模型组合调度、图像编辑、流程复用及接口集成等功能。作者宣称其为针对消费级硬件深度优化的推理引擎。该项目适用于精细化生成流程搭建与内容生产管线集成。
+
+8. supabase/supabase
+https://github.com/supabase/supabase
+语言：TypeScript | Star：112600 | 今日新增：509
+README 已截断；AI 摘要：作者宣称Supabase是一个开源Postgres开发平台，旨在为开发者提供类Firebase体验。其主要功能包括托管数据库、身份认证与授权、自动生成REST与GraphQL接口、实时数据订阅、函数计算、文件存储以及AI向量工具集。该项目适用于构建Web、移动及AI应用的后端服务。
+
+9. twentyhq/twenty
+https://github.com/twentyhq/twenty
+语言：TypeScript | Star：58784 | 今日新增：105
+README 已截断；AI 摘要：据作者介绍，该项目是面向AI设计的开源CRM系统。主要提供对象、视图、工作流和AI代理等基础模块，支持团队以代码形式定义数据对象与字段，实现版本控制与扩展，并提供云端部署和自托管方案。该项目适用于需要应对复杂业务需求、定制客户关系管理流程并希望通过代码方式灵活迭代系统的技术团队。
+
+10. shiyu-coder/Kronos
+https://github.com/shiyu-coder/Kronos
+语言：Python | Star：42576 | 今日新增：733
+README 已截断；AI 摘要：作者宣称Kronos是面向金融市场K线序列的基础模型。该项目主要用于量化分析与时序预测，其功能包括将连续多维K线数据量化为离散标记，并通过自回归模型完成数据预处理、归一化及概率化走势预测，同时支持任务微调。适用于股票、加密货币等金融资产的多周期K线预测与量化研究场景。
