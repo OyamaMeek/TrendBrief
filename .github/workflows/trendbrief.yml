@@ -60,6 +60,7 @@ jobs:
           AI_API_KEY: ${{ secrets.AI_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_MESSAGE_THREAD_ID: ${{ vars.TELEGRAM_MESSAGE_THREAD_ID }}
         run: python trending_digest.py
       - name: Report failure
         if: failure()

@@ -1,5 +1,26 @@
 # 开发记录
 
+## [2026-10-30 09:57] 将简报发送到 TrendBrief 话题
+
+- **需求/问题描述**：
+  > 把发送的消息放到截图中的 TrendBrief 话题。
+
+- **实际实现的功能与改动**：
+  - 增加可选 TELEGRAM_MESSAGE_THREAD_ID，发送请求携带话题 ID；未配置时保留群组默认行为。目标指纹包含话题，防止补跑切换目标。
+  - 本地和 Actions Variable 配置为 43，更新工作流、配置示例及恢复说明；历史正文和发送记录保持冻结。
+  - 测试/验证：先复现话题参数缺失及无效配置被接受，再通过全部 32 项 unittest；pip check、Ruff、格式、编译、YAML/shell 与 git diff 检查通过。
+  - 真实确认消息 message_id=135，Telegram 返回 message_thread_id=43、is_topic_message=true，群组匹配；Actions Variable 回读为 43。未手动运行完整简报或迁移历史消息。
+
+- **涉及文件**：
+  - trending_digest.py、tests/test_network.py、tests/test_delivery.py
+  - .github/workflows/trendbrief.yml、.env.example、README.md
+  - memory/agents.md、memory/plan.md、memory/progress.md、memory/verify.md、docs/CHANGELOG.md
+  - .env 和 .local-test/ 内配置及验收证据为忽略文件，不提交。
+
+- **Git 提交**：待提交。
+
+---
+
 ## [2026-10-16 15:42] 增加定时漏跑后的补跑机会
 
 - **需求/问题描述**：

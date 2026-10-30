@@ -24,6 +24,7 @@ cp .env.example .env
 | `AI_TOKEN_BUDGET_FIELD` | 按服务文档及真实请求验证，填写 `max_tokens` 或 `max_completion_tokens`，固定值 1024 |
 | `TELEGRAM_BOT_TOKEN` | Bot Token，仅发送模式需要 |
 | `TELEGRAM_CHAT_ID` | 群组实际负数 ID，保留完整负号和数字，仅发送模式需要 |
+| `TELEGRAM_MESSAGE_THREAD_ID` | 可选，正整数话题 ID；当前部署为 TrendBrief 话题 `43`，留空时发送到群组默认位置 |
 
 当前部署已通过非流式 Chat Completions 和 `max_tokens=1024` 的真实验证。更换服务商或模型时须重新验证协议和预算字段，程序不会自动更换协议或省略预算。每个项目独立请求，长度不合格时最多纠正一次；可重试 HTTP 请求最多尝试 3 次，因此会产生相应 API 费用。
 
@@ -40,7 +41,9 @@ cp .env.example .env
 在仓库 Settings → Secrets and variables → Actions 配置：
 
 - Secrets：`AI_API_KEY`、`TELEGRAM_BOT_TOKEN`、`TELEGRAM_CHAT_ID`。
-- Variables：`AI_BASE_URL`、`AI_MODEL`、`AI_TOKEN_BUDGET_FIELD`。
+- Variables：`AI_BASE_URL`、`AI_MODEL`、`AI_TOKEN_BUDGET_FIELD`、`TELEGRAM_MESSAGE_THREAD_ID`。
+
+发送到论坛话题时，从话题分享链接取得最后一段数字作为 `TELEGRAM_MESSAGE_THREAD_ID`，例如 `https://t.me/c/群组编号/43` 对应 `43`；群组仍使用原有完整负数 `TELEGRAM_CHAT_ID`。本地 `.env` 和 Actions Variable 均需配置。
 
 先将 Bot 加入实际群组并授予发言权限。通过服务商文档和真实预览确认 AI 请求，再在 Actions 页面选择 `TrendBrief` → `Run workflow`，分支选择默认分支。手动运行会发送真实消息，使用实际启动时的北京时间日期。也可以在已安装并认证的 GitHub CLI 中执行：
 
@@ -59,9 +62,10 @@ cron 为 `6,36 6,8,9 * * *`，使用 UTC，对应北京时间 14:06、14:36、16
 
 - `massage/YYYY/MM/DD/Trending.md` 保存当天日期、抓取时间、统计及实际分段正文。目录名固定为 `massage`。
 - 新生成的 Telegram 推送正文不展示抓取时间；来源时间保留在归档头部和状态中。已确认发送的历史正文保持冻结。
-- `.state/YYYY/MM/DD/delivery.json` 保存 SHA-256 群组指纹、正文校验值、冻结正文、状态和已确认的 `message_id`，不保存原始群组 ID 或凭证。指纹不属于秘密加密，不应据此推断状态适合存放其他秘密。
+- `.state/YYYY/MM/DD/delivery.json` 保存 SHA-256 发送目标指纹（群组和可选话题）、正文校验值、冻结正文、状态和已确认的 `message_id`，不保存原始群组 ID 或凭证。未配置话题时兼容原有群组指纹。指纹不属于秘密加密，不应据此推断状态适合存放其他秘密。
 - 初始正文和状态同一提交 push 成功后才发送；每段先提交并 push `sending`，确认远端正文后调用 Telegram；收到有效成功响应后提交并 push `sent` 和 ID，再处理下一段。
 - 同日补跑复用冻结正文，仅处理 `pending`；全部 `sent` 时不调用 AI 或 Telegram。归档和状态缺失、损坏、校验不一致或目标变化时终止，不覆盖。
+- 切换话题只影响后续新日期的简报；若当天已经生成记录，目标变化会终止发送。保留当天记录，下一日期自动使用新目标，已发送消息不会自动迁移。
 - 连接建立失败或明确拒绝的 429 可以有限重试；明确未发送时回存 `pending` 后失败退出。其他明确拒绝的 4xx 也保留 `pending`，修复配置后可补跑。
 - 超时、连接中断、5xx、无效成功响应，以及启动时遗留的 `sending`，均作为结果不确定处理，停止自动发送。不能承诺恰好发送一次。Telegram 已收到但状态 push 失败时，远端仍是 `sending`，后续会转为 `uncertain`。
 
@@ -73,7 +77,7 @@ cron 为 `6,36 6,8,9 * * *`，使用 UTC，对应北京时间 14:06、14:36、16
 4. 保持其他正文、校验和和已确认分段不变。可在已导出 Telegram 配置的终端中验证文件：
 
    ```bash
-   .venv/bin/python -c 'import os; from pathlib import Path; import trending_digest as t; day=t.shanghai_now().date().isoformat(); a,s=t.paths(Path.cwd(),day); t.validate_delivery(t.json_object(s.read_bytes()),day,t.fingerprint(os.environ["TELEGRAM_CHAT_ID"]),a.read_bytes()); print("状态校验通过")'
+   .venv/bin/python -c 'import os; from pathlib import Path; import trending_digest as t; day=t.shanghai_now().date().isoformat(); a,s=t.paths(Path.cwd(),day); topic=os.environ.get("TELEGRAM_MESSAGE_THREAD_ID", "").strip(); t.validate_delivery(t.json_object(s.read_bytes()),day,t.fingerprint(os.environ["TELEGRAM_CHAT_ID"],int(topic) if topic else None),a.read_bytes()); print("状态校验通过")'
    ```
 
    历史日期需将 `day` 明确改成待核实的日期；校验不会向外发送消息。

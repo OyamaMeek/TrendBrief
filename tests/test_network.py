@@ -155,8 +155,17 @@ class NetworkTests(unittest.TestCase):
             self.assertEqual(sender.send("正文"), 42)
         payload = json.loads(calls[0][2])
         self.assertEqual(payload["chat_id"], "-123")
+        self.assertNotIn("message_thread_id", payload)
         self.assertNotIn("parse_mode", payload)
         self.assertTrue(payload["link_preview_options"]["is_disabled"])
+
+    def test_send_message_to_forum_topic(self):
+        response = (200, b'{"ok":true,"result":{"message_id":42}}', {})
+        with local_server([response]) as (url, calls), httpx.Client() as client:
+            sender = digest.Telegram(digest.Network(client, digest.Budget()), "token", "-123", 43)
+            sender.url = url
+            self.assertEqual(sender.send("正文"), 42)
+        self.assertEqual(json.loads(calls[0][2])["message_thread_id"], 43)
 
     def test_telegram_does_not_retry_connection_interruption(self):
         with local_server([(None, b"", {})]) as (url, calls), httpx.Client() as client:

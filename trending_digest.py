@@ -460,11 +460,19 @@ def telegram_result(status, raw):
 
 
 class Telegram:
-    def __init__(self, network, token, chat_id):
+    def __init__(self, network, token, chat_id, message_thread_id=None):
         self.network, self.chat_id = network, chat_id
+        self.message_thread_id = message_thread_id
         self.url = f"https://api.telegram.org/bot{token}/sendMessage"
 
     def send(self, text):
+        payload = {
+            "chat_id": self.chat_id,
+            "text": text,
+            "link_preview_options": {"is_disabled": True},
+        }
+        if self.message_thread_id is not None:
+            payload["message_thread_id"] = self.message_thread_id
         for attempt in range(3):
             try:
                 status, raw, _ = self.network.request(
@@ -472,11 +480,7 @@ class Telegram:
                     self.url,
                     limit=64 * 1024,
                     retries=False,
-                    json={
-                        "chat_id": self.chat_id,
-                        "text": text,
-                        "link_preview_options": {"is_disabled": True},
-                    },
+                    json=payload,
                 )
                 return telegram_result(status, raw)
             except DeliveryError as error:
@@ -513,8 +517,11 @@ def checksum(raw):
     return hashlib.sha256(raw).hexdigest()
 
 
-def fingerprint(chat_id):
-    return checksum(("trendbrief:telegram:" + chat_id).encode())
+def fingerprint(chat_id, message_thread_id=None):
+    target = "trendbrief:telegram:" + chat_id
+    if message_thread_id is not None:
+        target += f":thread:{message_thread_id}"
+    return checksum(target.encode())
 
 
 def render_archive(state):
@@ -747,7 +754,11 @@ def run(dry_run, env, root, instant=None):
         chat_id = required(env, "TELEGRAM_CHAT_ID")
         if not re.fullmatch(r"-[1-9][0-9]*", chat_id):
             raise DigestError("config", "TELEGRAM_CHAT_ID 必须为目标群组完整负数 ID")
-        target = fingerprint(chat_id)
+        thread_value = env.get("TELEGRAM_MESSAGE_THREAD_ID", "").strip()
+        if thread_value and not re.fullmatch(r"[1-9][0-9]*", thread_value):
+            raise DigestError("config", "TELEGRAM_MESSAGE_THREAD_ID 必须为正整数话题 ID")
+        message_thread_id = int(thread_value) if thread_value else None
+        target = fingerprint(chat_id, message_thread_id)
         warn_incomplete_history(root, day)
         state = load_delivery(store, day, target)
         if state and all(m["status"] == "sent" for m in state["messages"]):
@@ -765,7 +776,7 @@ def run(dry_run, env, root, instant=None):
             generated = generate_digest(network, AIConfig.from_env(env), day)
             state = new_delivery(generated, target)
             store.save(state, create=True)
-        deliver(store, state, Telegram(network, token, chat_id))
+        deliver(store, state, Telegram(network, token, chat_id, message_thread_id))
     emit("ok", "run", f"{day} 全部分段已确认送达且最终状态已保存到远端")
 
 

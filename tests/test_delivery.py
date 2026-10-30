@@ -23,6 +23,17 @@ def sample_state():
 
 
 class StateTests(unittest.TestCase):
+    def test_topic_change_rejects_existing_delivery(self):
+        state = sample_state()
+        archive = digest.render_archive(state)
+        state["target"] = digest.fingerprint("-123", 43)
+        digest.validate_delivery(state, state["date"], digest.fingerprint("-123", 43), archive)
+        for thread_id in (None, 44):
+            with self.subTest(thread_id=thread_id), self.assertRaises(digest.DigestError):
+                digest.validate_delivery(
+                    state, state["date"], digest.fingerprint("-123", thread_id), archive
+                )
+
     def test_startup_date_stays_fixed_across_midnight(self):
         state = sample_state()
         state["fetched_at"] = "2026-10-16T00:01:00+08:00"
@@ -136,7 +147,21 @@ class GitDeliveryTests(unittest.TestCase):
             "GITHUB_WORKFLOW_REF": "owner/repo/.github/workflows/trendbrief.yml@refs/heads/main",
             "TELEGRAM_CHAT_ID": "-123",
         }
-        digest.run(False, env, self.root, datetime(2026, 10, 15, 7, tzinfo=UTC))
+        instant = datetime(2026, 10, 15, 7, tzinfo=UTC)
+        digest.run(False, env, self.root, instant)
+        for value in ("0", "-1", "abc", "1.5", "+43"):
+            with self.subTest(value=value):
+                with self.assertRaises(digest.DigestError) as caught:
+                    digest.run(
+                        False, dict(env, TELEGRAM_MESSAGE_THREAD_ID=value), self.root, instant
+                    )
+                self.assertEqual(caught.exception.data["type"], "config")
+        self.state["target"] = digest.fingerprint("-123", 43)
+        self.store.save(self.state)
+        digest.run(False, dict(env, TELEGRAM_MESSAGE_THREAD_ID="43"), self.root, instant)
+        with self.assertRaises(digest.DigestError) as caught:
+            digest.run(False, dict(env, TELEGRAM_MESSAGE_THREAD_ID="44"), self.root, instant)
+        self.assertEqual(caught.exception.data["type"], "state")
 
     def test_explicit_rejection_returns_pending_and_timeout_is_uncertain(self):
         for code, payload, expected in (

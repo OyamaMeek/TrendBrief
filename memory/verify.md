@@ -1,5 +1,7 @@
 # 验证要求
 
+- 话题发送：真实本地 HTTP 检查 payload 的 message_thread_id=43，未配置时字段缺省；真实 Git 状态检查不同话题指纹隔离、无效配置拒绝和同日已发送跳过。更新工作流 YAML 校验并运行完整检查。真实 Telegram 确认消息返回的 chat.id 与 message_thread_id 必须分别匹配本地配置和 43；Actions Variable 回读为 43。
+
 - unittest 先失败再实现；真实页面材料注明来源与采集时间。
 - 检查榜单原顺序/前十、字段缺失、异常结构、Unicode、100～150 字、日期/调度。
 - 检查损坏状态、指纹、校验和、孤立文件、sent/sending/uncertain、补跑冻结正文。
@@ -9,6 +11,9 @@
 - 定时补跑：YAML 解析检查 UTC 06/08/09 时的 06/36 分、并发组、权限、SHA 及 shell 语法；完整测试确认同日已发送跳过和不确定发送停止。手动验收与实际 schedule 验收分别记录。
 
 ## 已执行证据
+
+- 2026-10-30 话题发送：路由与指纹测试因尚无话题参数失败，无效话题 0 被错误接受的断言失败；实现后完整 32 项 unittest 通过。pip check、Ruff check、format --check、py_compile、工作流 YAML/shell、git diff --check 通过。
+- 本地 TELEGRAM_MESSAGE_THREAD_ID=43；GitHub Actions Variable 写入后 GET 回读为 43。产品 Telegram.send 真实发送确认消息，返回 message_id=135、message_thread_id=43、is_topic_message=true，chat.id 与截图及本地配置一致；证据存于忽略目录 .local-test/topic-confirmation.json。未手动触发完整简报，不把本地确认作为下一轮 Actions 定时验收。
 
 - Python 3.13.16 安装在项目忽略目录 .runtime，虚拟环境 .venv；固定依赖安装及 pip check 成功。
 - 首轮纯函数和随后 HTTP、状态测试均先出现缺失实现失败，再通过；独立审查发现的慢速 HTTP 问题补充失败回归测试后修复。
