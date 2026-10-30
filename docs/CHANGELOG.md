@@ -17,7 +17,7 @@
   - memory/agents.md、memory/plan.md、memory/progress.md、memory/verify.md、docs/CHANGELOG.md
   - .env 和 .local-test/ 内配置及验收证据为忽略文件，不提交。
 
-- **Git 提交**：待提交。
+- **Git 提交**：`ad49b58 feat: route Telegram digests to a configured forum topic`，已普通推送至 origin/main；提交结果通过后续文档提交补记。
 
 ---
 

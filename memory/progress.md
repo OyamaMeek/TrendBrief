@@ -6,7 +6,7 @@
 - [x] 话题路由、目标隔离及配置校验测试先失败，再实现可选话题参数。
 - [x] 更新 Actions、配置示例和恢复说明；32 项测试、pip check、Ruff、格式、编译、YAML/shell 及 git diff 检查通过。
 - [x] 本地和 Actions 话题 43 已配置并回读；通过产品 Telegram.send 发送确认消息，返回 message_id=135、message_thread_id=43、is_topic_message=true，群组与截图匹配。
-- [ ] 提交并推送本次改动。未手动触发完整简报，下一次定时发送使用新话题；历史消息未迁移。
+- [x] 功能提交 ad49b58 已普通推送至 origin/main。未手动触发完整简报，下一次定时发送使用新话题；历史消息未迁移。
 
 - [x] 读取 Claude.md；用户确认当前仓库为产品目录。
 - [x] 抓取、解析、分段及日期测试和实现；真实 Trending 与前十项目 README 请求成功。
