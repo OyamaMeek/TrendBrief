@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "date": "2026-11-01",
+  "fetched_at": "2026-11-01T21:12:22+08:00",
+  "target": "c6021015dec9d421b864c5ea2f74546031ab6ae64ffaa45d6d5b88ee0d6012f5",
+  "archive_sha256": "e0b4456a6ee95851b19a1555b5d2182df716fb5e895c7f3e1e1a2f5c86d5689c",
+  "messages": [
+    {
+      "text": "开源趋势简报 2026-11-01（1/1）\n\n1. thedotmack/claude-mem\nhttps://github.com/thedotmack/claude-mem\n语言：TypeScript | Star：108544 | 今日新增：1527\nREADME 已截断；AI 摘要：据作者介绍，该项目是为智能体打造的跨会话持久记忆压缩系统。主要功能包括自动捕获会话中的工具使用与操作，利用AI压缩生成语义摘要，并在未来会话中注入相关上下文；同时支持接入多种内存服务提供商。适用于开发者在使用Claude Code、OpenCode等工具时保持跨会话的项目知识连贯性。\n\n2. lightpanda-io/browser\nhttps://github.com/lightpanda-io/browser\n语言：Zig | Star：39656 | 今日新增：827\nREADME 已截断；AI 摘要：面向人工智能代理与自动化的无头浏览器，适用于网页自动化、内容提取及智能体任务等场景。作者宣称该项目由Zig语言从零构建，运行表现更轻快。其主要功能包括提供CDP与WebDriver协议服务以兼容自动化工具、支持将网页转储为多种格式或结构化数据，以及内置可通过自然语言操控并生成脚本的智能体模式。\n\n3. shiyu-coder/Kronos\nhttps://github.com/shiyu-coder/Kronos\n语言：Python | Star：44980 | 今日新增：611\nREADME 已截断；AI 摘要：据作者介绍，Kronos是面向金融市场K线序列的基础模型。该项目将多维K线数据量化为离散标记，利用自回归架构实现时序预测，提供数据预处理、标准化与批量生成预测等功能，并支持脚本微调。该模型适用于金融K线行情走势预测及各类量化分析任务。\n\n4. pingdotgg/t3code\nhttps://github.com/pingdotgg/t3code\n语言：TypeScript | Star：36680 | 今日新增：3100\nAI 摘要：T3 Code 被作者称为智能体控制面板，用于控制本机智能体。项目提供移动端、网页及桌面端界面，支持接入本机已配置的 Claude Code、Codex、Cursor 等智能体，并具备远程访问与后台运行功能。适用于开发者通过多端设备统一远程管理与调度本机 AI 编程工具的场景。\n\n5. milind-soni/OpenMausBot\nhttps://github.com/milind-soni/OpenMausBot\n语言：TypeScript | Star：10151 | 今日新增：919\nREADME 已截断；AI 摘要：OpenMausBot被作者定位为Grok Bot的开源替代品。据介绍，该项目采用本地优先架构，可在聊天界面中管理多个AI智能体，支持直接接入本地CLI模型。主要功能包括为各智能体配置独立模型与个性，并驱动虚拟机、云桌面或宿主机执行应用操作。适用于以会话形式指挥多智能体执行计算机任务的场景。\n\n6. public-apis/public-apis\nhttps://github.com/public-apis/public-apis\n语言：Python | Star：494041 | 今日新增：298\nREADME 已截断；AI 摘要：该项目是一个免费公共API集合。据维护者介绍，项目由社区与机构共同维护，汇总了跨多领域的公开REST API资源，涵盖IP定位、气象查询、外汇汇率、航班动态及数据抓取等接口信息。其主要适用于开发者在构建自有产品或服务时，快速查找、参考并集成各类第三方网络接口。\n\n7. cjpais/Handy\nhttps://github.com/cjpais/Handy\n语言：Rust | Star：36104 | 今日新增：611\nREADME 已截断；AI 摘要：Handy是一款跨平台开源离线语音转文字应用。据作者介绍，该项目完全在本地运行以保护隐私。主要功能包括：通过快捷键触发录音，经Silero过滤静音，支持选用Whisper或Parakeet模型转录，并将文本直接粘贴至当前输入框，亦支持命令行控制。适用于无网络或注重隐私环境下的桌面语音输入场景。\n\n8. Donchitos/Claude-Code-Game-Studios\nhttps://github.com/Donchitos/Claude-Code-Game-Studios\n语言：Shell | Star：31694 | 今日新增：970\nREADME 已截断；AI 摘要：作者旨在将Claude Code会话构建为仿照实体游戏工作室层级架构的协作开发环境。项目主要提供总监、部门负责人及多引擎专员等多级智能体角色，涵盖设计、编程、质检等工作流指令与规范检查机制。该项目适用于希望借助AI进行全流程、多角色协同与规范化管理的游戏开发场景。\n\n9. kornia/kornia\nhttps://github.com/kornia/kornia\n语言：Python | Star：11595 | 今日新增：88\nREADME 已截断；AI 摘要：作者宣称Kornia是基于PyTorch的可微计算机视觉库。该项目主要提供可微图像处理算子（如滤波与边缘检测）、几何变换与对极几何求解、批量数据增强，以及局部特征提取与匹配等功能。其适用于需要GPU加速和自动微分的深度学习工作流，如批量图像变换、模型训练增强及三维几何视觉任务。\n\n10. beenuar/AiSOC\nhttps://github.com/beenuar/AiSOC\n语言：Python | Star：5890 | 今日新增：436\nREADME 已截断；AI 摘要：该项目系开源且可自托管的AI安全运营中心。据作者介绍，其主要用于接收并标准化安全遥测数据，利用规则与AI智能体执行告警聚合、威胁研判和关联调查，全程记录可审计的推理决策，并生成需人工审批的响应建议。适用于企业安全运营、自动化威胁分流排查及安全事件应急响应等业务场景。",
+      "status": "pending",
+      "message_id": null
+    }
+  ]
+}
