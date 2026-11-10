@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "date": "2026-11-10",
+  "fetched_at": "2026-11-10T22:46:55+08:00",
+  "target": "c6021015dec9d421b864c5ea2f74546031ab6ae64ffaa45d6d5b88ee0d6012f5",
+  "archive_sha256": "e10df606ff15552d98b3c4f33e08c5aa3957ebef8db7ed32b777c1c293d5c945",
+  "messages": [
+    {
+      "text": "开源趋势简报 2026-11-10（1/1）\n\n1. meta/astryx\nhttps://github.com/meta/astryx\n语言：TypeScript | Star：21808 | 今日新增：3111\nREADME 已截断；摘要失败（AI 请求失败（HTTP 504））；原始描述：An open source design system that's fully customizable and agent ready\n\n2. anthropics/skills\nhttps://github.com/anthropics/skills\n语言：Python | Star：191897 | 今日新增：1676\n摘要失败（AI 请求失败（HTTP 503））；原始描述：Public repository for Agent Skills\n\n3. addyosmani/agent-skills\nhttps://github.com/addyosmani/agent-skills\n语言：JavaScript | Star：114862 | 今日新增：465\nREADME 已截断；摘要失败（AI 请求失败（HTTP 503））；原始描述：Production-grade engineering skills for AI coding agents.\n\n4. anthropics/claude-quickstarts\nhttps://github.com/anthropics/claude-quickstarts\n语言：Python | Star：20302 | 今日新增：530\nREADME 已截断；摘要失败（AI 请求失败（HTTP 503））；原始描述：A collection of projects designed to help developers quickly get started with building deployable applications using the Claude API\n\n5. google-deepmind/mujoco\nhttps://github.com/google-deepmind/mujoco\n语言：C++ | Star：17197 | 今日新增：453\nREADME 已截断；摘要失败（AI 请求失败（HTTP 503））；原始描述：Multi-Joint dynamics with Contact. A general purpose physics simulator.\n\n6. we-promise/sure\nhttps://github.com/we-promise/sure\n语言：Ruby | Star：11541 | 今日新增：184\n摘要失败（AI 请求失败（HTTP 503））；原始描述：The personal finance app for everyone (by everyone)\n\n7. homeassistant-ai/ha-mcp\nhttps://github.com/homeassistant-ai/ha-mcp\n语言：Python | Star：6383 | 今日新增：792\nREADME 已截断；摘要失败（AI 请求失败（HTTP 503））；原始描述：Configure and automate Home Assistant with Claude, ChatGPT, and other AI assistants.\n\n8. vercel-labs/agent-browser\nhttps://github.com/vercel-labs/agent-browser\n语言：Rust | Star：48967 | 今日新增：775\nREADME 已截断；摘要失败（AI 请求失败（HTTP 503））；原始描述：Browser automation CLI for AI agents\n\n9. sherlock-project/sherlock\nhttps://github.com/sherlock-project/sherlock\n语言：Python | Star：108412 | 今日新增：2387\n摘要失败（AI 请求失败（HTTP 503））；原始描述：Hunt down social media accounts by username across social networks\n\n10. tokio-rs/topcoat\nhttps://github.com/tokio-rs/topcoat\n语言：Rust | Star：6633 | 今日新增：192\nREADME 已截断；摘要失败（AI 请求失败（HTTP 503））；原始描述：A batteries-included framework for building web apps",
+      "status": "pending",
+      "message_id": null
+    }
+  ]
+}
