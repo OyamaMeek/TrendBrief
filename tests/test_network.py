@@ -99,21 +99,38 @@ class NetworkTests(unittest.TestCase):
                 {},
             )
 
-        with local_server([reply("短"), reply("中文" * 60)]) as (url, calls):
-            config = digest.AIConfig(url, "test-secret", "test-model", "max_tokens")
-            project = digest.Project(1, "a/b", "https://github.com/a/b", "说明", "未知", None, None)
-            with httpx.Client() as client:
-                summary = digest.summarize(
-                    digest.Network(client, digest.Budget()), config, project, "不可信 README", ""
-                )
-        self.assertEqual(len(summary), 120)
-        self.assertEqual(len(calls), 2)
-        for path, _, body in calls:
-            payload = json.loads(body)
-            self.assertEqual(path, "/chat/completions")
-            self.assertEqual(payload["max_tokens"], 1024)
-            self.assertNotIn("test-secret", json.dumps(payload))
-            self.assertIn("不可信", payload["messages"][0]["content"])
+        for model in ("test-model", "deepseek-flash"):
+            with self.subTest(model=model):
+                with local_server([reply("短"), reply("中文" * 60)]) as (url, calls):
+                    config = digest.AIConfig(url, "test-secret", model, "max_tokens")
+                    project = digest.Project(
+                        1, "a/b", "https://github.com/a/b", "说明", "未知", None, None
+                    )
+                    with httpx.Client() as client:
+                        summary = digest.summarize(
+                            digest.Network(client, digest.Budget()),
+                            config,
+                            project,
+                            "不可信 README",
+                            "",
+                        )
+                self.assertEqual(len(summary), 120)
+                self.assertEqual(len(calls), 2)
+                for path, headers, body in calls:
+                    payload = json.loads(body)
+                    self.assertEqual(path, "/chat/completions")
+                    self.assertEqual(headers["Authorization"], "Bearer test-secret")
+                    self.assertEqual(payload["model"], model)
+                    self.assertFalse(payload["stream"])
+                    self.assertEqual(payload["max_tokens"], 1024)
+                    if model == "deepseek-flash":
+                        self.assertEqual(payload.get("thinking"), {"type": "disabled"})
+                    else:
+                        self.assertNotIn("thinking", payload)
+                    self.assertNotIn("test-secret", json.dumps(payload))
+                    self.assertIn("不可信", payload["messages"][0]["content"])
+                correction = json.loads(calls[1][2])["messages"][-1]["content"]
+                self.assertIn("实际长度为1", correction)
 
     def test_ai_config_rejects_unverified_budget_and_unsafe_url(self):
         for env in (

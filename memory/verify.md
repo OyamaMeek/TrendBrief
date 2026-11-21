@@ -1,5 +1,7 @@
 # 验证要求
 
+- DeepSeek：真实本地 HTTP 检查 deepseek-flash 请求关闭思考，首轮与长度纠正均携带 max_tokens=1024、Bearer 认证和非流式参数；其他模型不新增 DeepSeek 参数。完整 unittest、pip check、Ruff、格式、编译、工作流 YAML/shell、git diff 检查。官方密钥到位后使用产品 summarize 和 --dry-run 验证实际返回与 100～150 字限制，再加密配置 Actions 并回读非秘密变量；不把本地 HTTP 测试视作官方验收。
+
 - 话题发送：真实本地 HTTP 检查 payload 的 message_thread_id=43，未配置时字段缺省；真实 Git 状态检查不同话题指纹隔离、无效配置拒绝和同日已发送跳过。更新工作流 YAML 校验并运行完整检查。真实 Telegram 确认消息返回的 chat.id 与 message_thread_id 必须分别匹配本地配置和 43；Actions Variable 回读为 43。
 
 - unittest 先失败再实现；真实页面材料注明来源与采集时间。
@@ -11,6 +13,10 @@
 - 定时补跑：YAML 解析检查 UTC 06/08/09 时的 06/36 分、并发组、权限、SHA 及 shell 语法；完整测试确认同日已发送跳过和不确定发送停止。手动验收与实际 schedule 验收分别记录。
 
 ## 已执行证据
+
+- 2026-11-21 DeepSeek：test_ai_length_correction_and_explicit_budget 的 deepseek-flash 子测试先因缺少 thinking.disabled 失败，实现后通过；检查首轮和纠正请求的模型、Bearer、非流式及 1024 tokens 参数，普通模型不新增 thinking。实际长度反馈测试也先失败再通过。全部 32 项 unittest、pip check、Ruff、格式、py_compile、工作流 YAML/shell 和 git diff 检查重跑通过。
+- 用户更新官方密钥后，产品 summarize 真实返回 114 字、finish_reason=stop；完整 --dry-run 最终 10 条摘要全部通过、失败 0，字数依次为 114、105、145、102、110、111、104、123、113、117。真实预览和日志位于忽略目录 .local-test/dry-run.md、dry-run.log。未写入归档或发送状态。
+- Actions 已配置官方地址、deepseek-flash、max_tokens，三项 Variables 回读匹配；AI_API_KEY 使用仓库公钥加密上传，元数据 updated_at=2026-11-21T03:44:07Z，话题 43 保持不变。上传前确认 workflow 无运行或排队任务。证据 .local-test/deepseek-deployment.json 不含秘密。未手动触发 Actions 或发送 Telegram 消息；DeepSeek 在 runner 中的实际定时运行尚未验收。
 
 - 2026-10-30 话题发送：路由与指纹测试因尚无话题参数失败，无效话题 0 被错误接受的断言失败；实现后完整 32 项 unittest 通过。pip check、Ruff check、format --check、py_compile、工作流 YAML/shell、git diff --check 通过。
 - 本地 TELEGRAM_MESSAGE_THREAD_ID=43；GitHub Actions Variable 写入后 GET 回读为 43。产品 Telegram.send 真实发送确认消息，返回 message_id=135、message_thread_id=43、is_topic_message=true，chat.id 与截图及本地配置一致；证据存于忽略目录 .local-test/topic-confirmation.json。未手动触发完整简报，不把本地确认作为下一轮 Actions 定时验收。

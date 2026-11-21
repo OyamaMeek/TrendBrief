@@ -1,5 +1,14 @@
 # 当前进度
 
+## DeepSeek 官方 API（2026-11-21）
+
+- [x] 核对 summarize 调用、AIConfig、Actions 变量和配置文档；用户确认官方 API，官方文档核实 deepseek-flash、thinking.disabled、max_tokens。
+- [x] 协议测试先因缺少 thinking.disabled 断言失败，再更新请求、官方配置示例及 README；其他模型参数保持兼容。
+- [x] 32 项 unittest、pip check、Ruff、格式、编译、工作流 YAML/shell 和 git diff 检查通过；同步远端截至 44cb040 的历史简报与状态。
+- [x] 用户更新官方密钥；本地配置为官方地址和 deepseek-flash。单项目真实摘要 114 字；完整预览首次 8 项成功、2 项长度失败，添加计数说明与实际长度反馈后 10 项全部通过（114、105、145、102、110、111、104、123、113、117 字）。反馈回归测试先失败再通过，完整检查重跑通过。
+- [x] Actions AI_API_KEY 加密上传，Secret 元数据及三项 AI Variables 回读成功；话题 43 保持不变。上传前确认无运行或排队任务，证据位于忽略目录 .local-test/deepseek-deployment.json。未手动触发 Actions 或 Telegram，后续定时运行的 DeepSeek 验收尚未执行。
+- [ ] 开发记录已更新，代码待提交并普通推送；未发送额外 Telegram 消息。
+
 ## Telegram 话题发送（2026-10-30）
 
 - [x] 核对所有 Telegram 与 fingerprint 调用、配置和恢复文档；同步远端最新发送记录。

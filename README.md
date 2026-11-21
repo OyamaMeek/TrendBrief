@@ -18,15 +18,15 @@ cp .env.example .env
 
 | 环境变量 | 用途 |
 | --- | --- |
-| `AI_BASE_URL` | 完整 HTTPS API 前缀，例如服务商文档中的 `/v1`，程序只追加 `/chat/completions` |
-| `AI_MODEL` | 服务商实际支持的模型 |
-| `AI_API_KEY` | AI 密钥 |
-| `AI_TOKEN_BUDGET_FIELD` | 按服务文档及真实请求验证，填写 `max_tokens` 或 `max_completion_tokens`，固定值 1024 |
+| `AI_BASE_URL` | DeepSeek 官方地址 `https://api.deepseek.com`，程序追加 `/chat/completions` |
+| `AI_MODEL` | `deepseek-flash` |
+| `AI_API_KEY` | 在 DeepSeek 开放平台创建的 API 密钥 |
+| `AI_TOKEN_BUDGET_FIELD` | DeepSeek 使用 `max_tokens`，固定值 1024 |
 | `TELEGRAM_BOT_TOKEN` | Bot Token，仅发送模式需要 |
 | `TELEGRAM_CHAT_ID` | 群组实际负数 ID，保留完整负号和数字，仅发送模式需要 |
 | `TELEGRAM_MESSAGE_THREAD_ID` | 可选，正整数话题 ID；当前部署为 TrendBrief 话题 `43`，留空时发送到群组默认位置 |
 
-当前部署已通过非流式 Chat Completions 和 `max_tokens=1024` 的真实验证。更换服务商或模型时须重新验证协议和预算字段，程序不会自动更换协议或省略预算。每个项目独立请求，长度不合格时最多纠正一次；可重试 HTTP 请求最多尝试 3 次，因此会产生相应 API 费用。
+摘要通过 DeepSeek 非流式 Chat Completions 生成；`deepseek-` 模型请求显式设置 `thinking: {"type": "disabled"}`，将 1024 tokens 预算用于简短正文。每个项目独立请求，长度不合格时最多纠正一次；可重试 HTTP 请求最多尝试 3 次，因此会产生相应 API 费用。迁移时先将本地 `.env` 配置为上述值并使用官方密钥，完成真实预览后再更新 Actions；中转服务密钥不能作为官方密钥使用。
 
 ```bash
 .venv/bin/python trending_digest.py --dry-run
@@ -42,6 +42,8 @@ cp .env.example .env
 
 - Secrets：`AI_API_KEY`、`TELEGRAM_BOT_TOKEN`、`TELEGRAM_CHAT_ID`。
 - Variables：`AI_BASE_URL`、`AI_MODEL`、`AI_TOKEN_BUDGET_FIELD`、`TELEGRAM_MESSAGE_THREAD_ID`。
+
+切换 DeepSeek 时，将 `AI_API_KEY` Secret 换成已验证的官方密钥，将前三项 AI Variables 分别设为 `https://api.deepseek.com`、`deepseek-flash`、`max_tokens`。工作流沿用现有变量名称。当天已经生成的简报继续使用冻结正文，新日期才重新调用模型。
 
 发送到论坛话题时，从话题分享链接取得最后一段数字作为 `TELEGRAM_MESSAGE_THREAD_ID`，例如 `https://t.me/c/群组编号/43` 对应 `43`；群组仍使用原有完整负数 `TELEGRAM_CHAT_ID`。本地 `.env` 和 Actions Variable 均需配置。
 
@@ -98,13 +100,16 @@ git diff --check
 
 测试使用真实 Trending 页面最小材料、纯函数边界输入、本地 HTTP 协议服务和 `.local-test/` 下真实 Git bare 仓库。离线测试验证逻辑和失败处理，不证明 AI、Telegram 或 GitHub Actions 可用。
 
-2026-10-15 已完成用户 AI 真实预览及 [Actions 手动发送](https://github.com/OyamaMeek/TrendBrief/actions/runs/38728721857)：10 条摘要全部成功，Telegram 确认 message_id=46，状态已保存到默认分支，用户确认群组收到完整内容。[再次运行](https://github.com/OyamaMeek/TrendBrief/actions/runs/38729696123)成功跳过，无需调用 AI 或 Telegram。实际 schedule 事件仍待后续验收。无 UI，无截图要求。
+2026-11-21 已将本地与 Actions AI 配置切换到 DeepSeek 官方 `deepseek-flash`，Secret 加密上传且三项 AI Variables 回读成功。真实完整预览 10 条摘要全部通过，长度 102～145 字；32 项测试及静态检查通过。未手动触发 Actions 或发送额外 Telegram 消息，切换后的定时运行尚未验收。
+
+2026-10-15 使用原 AI 服务完成真实预览及 [Actions 手动发送](https://github.com/OyamaMeek/TrendBrief/actions/runs/38728721857)：10 条摘要全部成功，Telegram 确认 message_id=46，状态已保存到默认分支，用户确认群组收到完整内容。[再次运行](https://github.com/OyamaMeek/TrendBrief/actions/runs/38729696123)成功跳过，无需调用 AI 或 Telegram。该记录不作为 DeepSeek 官方 API 的验收证据。无 UI，无截图要求。
 
 ## 官方接口参考
 
 - [GitHub Trending](https://github.com/trending?since=daily)
 - [GitHub README API](https://docs.github.com/en/rest/repos/contents#get-a-repository-readme)
-- [Chat Completions](https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create)
+- [DeepSeek API 配置](https://api-docs.deepseek.com/)
+- [DeepSeek Chat Completions](https://api-docs.deepseek.com/api/create-chat-completion)
 - [Telegram sendMessage](https://core.telegram.org/bots/api#sendmessage)
 - [Actions schedule](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule)
 - [GITHUB_TOKEN](https://docs.github.com/en/actions/tutorials/authenticate-with-github_token)

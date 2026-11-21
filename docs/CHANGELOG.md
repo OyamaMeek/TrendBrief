@@ -82,3 +82,23 @@
 - **Git 提交**：`9f1b40f fix: remove fetch timestamps from Telegram digest entries`，已推送 origin/main；实际发送状态提交为 `52d65ba docs: persist TrendBrief delivery 2026-10-15`。本记录与最新 Actions 证据通过后续文档提交补记。
 
 ---
+
+## [2026-11-21 11:44] 切换 DeepSeek 官方 API
+
+- **需求/问题描述**：
+  > 改用 DeepSeek API；用户确认使用官方服务。
+
+- **实际实现的功能与改动**：
+  - 复用 Chat Completions 与 AI_* 配置，示例更新为官方地址、deepseek-flash 和 max_tokens；DeepSeek 请求关闭思考并保留 1024 tokens 输出预算及长度纠正。其他模型请求保持兼容。
+  - 协议回归先因缺少关闭思考参数失败，再实现并通过；32 项 unittest、pip check、Ruff、格式、编译、工作流 YAML/shell 和 git diff 检查通过。
+  - 用户更新官方密钥后完成真实单项目 114 字摘要；首次完整预览出现 2 项长度失败，补充字符计数说明及上次实际长度反馈，回归先失败再通过。最终十项目预览全部成功，长度 102～145 字，失败 0；完整检查重跑通过。
+  - 本地及 Actions AI 配置已切换；AI_API_KEY 通过仓库公钥加密上传，Secret 元数据及三项 AI Variables 回读成功，话题 43 保持不变。未手动触发 Actions 或 Telegram，切换后的定时运行尚未验收。
+
+- **涉及文件**：
+  - trending_digest.py、tests/test_network.py、.env.example、README.md
+  - memory/agents.md、memory/plan.md、memory/progress.md、memory/verify.md、docs/CHANGELOG.md
+  - .env、.local-test/ 内部署脚本、预览及证据为忽略文件，不提交。
+
+- **Git 提交**：待提交。
+
+---

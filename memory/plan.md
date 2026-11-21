@@ -1,5 +1,11 @@
 # 实施计划
 
+## DeepSeek 官方 API（2026-11-21）
+
+用户确认切换到 DeepSeek 官方 API。复用现有 httpx、Chat Completions 和 AI_* 环境变量，配置示例采用 https://api.deepseek.com、deepseek-flash、max_tokens。DeepSeek 摘要请求显式关闭思考，保留 1024 tokens 预算、长度纠正及失败处理；其他模型请求保持现有参数，避免迁移期间影响当前部署。范围包含 summarize 调用、协议测试、配置示例、README 和本地/Actions 配置。没有新增依赖、导出或 fixture 变更。
+
+先运行暴露思考参数缺失的测试，再修改请求并运行完整检查。用户已更新本地 .env 官方密钥。真实预览发现长度不合格时，补充字符计数说明和实际长度反馈，并先验证反馈缺失的失败测试；保留最多一次纠正及超限失败规则。最终官方摘要和完整 dry-run 通过后更新 Actions 的 AI 配置；不额外发送 Telegram 消息，历史正文与发送状态保持冻结。完成可验证的改动后提交并普通推送。
+
 ## Telegram 话题发送（2026-10-30）
 
 用户要求后续消息发送到截图中的 TrendBrief 话题，目标群组为截图链接对应的群组，话题 ID 为 43。复用 Telegram.send，增加可选 TELEGRAM_MESSAGE_THREAD_ID，未配置时保持现有群组行为；话题纳入目标指纹，已有归档和发送状态保持冻结。范围包含发送入口、指纹、真实本地 HTTP/Git 测试、Actions 环境变量、配置示例及 README。验证后配置本地和 Actions、发送一条话题确认消息，提交并普通推送。
