@@ -99,6 +99,6 @@
   - memory/agents.md、memory/plan.md、memory/progress.md、memory/verify.md、docs/CHANGELOG.md
   - .env、.local-test/ 内部署脚本、预览及证据为忽略文件，不提交。
 
-- **Git 提交**：待提交。
+- **Git 提交**：`d421fcb feat: switch digest summaries to DeepSeek API`，已普通推送至 origin/main；实际提交信息通过后续文档提交补记。
 
 ---
